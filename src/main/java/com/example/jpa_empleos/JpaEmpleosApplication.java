@@ -22,9 +22,18 @@ public class JpaEmpleosApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        eliminar();
+        mostrarTodo();
     }
-
+    /**
+     * Mostrar todos los registros
+     */
+    private void mostrarTodo() {
+        Iterable<Categoria> lista = categoriasRepo.findAll();
+        System.out.println("--- Todos los registros ---");
+        for (Categoria cat : lista) {
+            System.out.println(cat);
+        }
+    }
     /**
      * Método deleteById(borrar) - Interfaz CrudRepository
      */
