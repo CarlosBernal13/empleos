@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.jpa_empleos.models.Categoria;
 
+import java.util.Optional;
+
 @SpringBootApplication
 public class JpaEmpleosApplication implements CommandLineRunner {
     private final CategoriasRepository categoriasRepo;
@@ -20,7 +22,19 @@ public class JpaEmpleosApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        guardar();
+        buscarPorId();
+    }
+
+    /**
+     * Método findById - Interfaz CrudRepository
+     */
+    private void buscarPorId() {
+        Optional<Categoria> categoriaBuscada = categoriasRepo.findById(6);
+        if (categoriaBuscada.isPresent()) {
+            System.out.println(categoriaBuscada.get());
+        } else {
+            System.out.println("Categoría no encontrada");
+        }
     }
 
     private void guardar() {
