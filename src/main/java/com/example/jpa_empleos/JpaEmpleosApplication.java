@@ -22,22 +22,18 @@ public class JpaEmpleosApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        buscarVacantesSalario();
+        buscarVacantesVariosEstatus();
     }
 
     /**
-     * Query Method: Buscar Vacantes rango de Salario (Between)
+     * Query Method: Buscar Vacantes por varios Estatus (In)
      */
-    private void buscarVacantesSalario() {
-        List<Vacante> vacantesSalariosEntre7000y14000 = vacantesRepo.findBySalarioBetween(7000.0, 14000.0);
-        System.out.println("Registros encontrados: " + vacantesSalariosEntre7000y14000.size());
-        for (Vacante vacante : vacantesSalariosEntre7000y14000) {
-            System.out.println(vacante.getId() + ": " + vacante.getNombre() + " - $" + vacante.getSalario());
-        } System.out.println("-".repeat(100));
-        List<Vacante> vacantesSalariosEntre7000y14000Desc = vacantesRepo.findBySalarioBetweenOrderBySalarioDesc(7000.0, 14000.0);
-        System.out.println("Registros encontrados: " + vacantesSalariosEntre7000y14000Desc.size());
-        for (Vacante vacante : vacantesSalariosEntre7000y14000Desc) {
-            System.out.println(vacante.getId() + ": " + vacante.getNombre() + " - $" + vacante.getSalario());
+    private void buscarVacantesVariosEstatus() {
+        EstatusVacante[] listaEstatus = new EstatusVacante[]{EstatusVacante.Eliminada, EstatusVacante.Creada};
+        List<Vacante> vacantesVariosEstatus = vacantesRepo.findByEstatusIn(listaEstatus);
+        System.out.println("Registros encontrados: " + vacantesVariosEstatus.size());
+        for (Vacante vacante : vacantesVariosEstatus) {
+            System.out.println(vacante.getId() + ": " + vacante.getNombre() + " - " + vacante.getEstatus());
         }
     }
 }
