@@ -22,7 +22,7 @@ public class JpaEmpleosApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        buscarVacantesVariosEstatus();
+        //buscarVacantesVariosEstatus();
     }
 
     /**
