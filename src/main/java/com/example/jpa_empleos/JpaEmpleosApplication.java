@@ -22,19 +22,17 @@ public class JpaEmpleosApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        buscarVacantesPorEstatus();
+        buscarVacantesPorDestacadoEstatus();
     }
 
     /**
-     * Query Method: Buscar Vacantes por Estatus
+     * Query Method: Buscar Vacantes por Destacado y Estatus Ordenado por Id Desc
      */
-    private void buscarVacantesPorEstatus() {
-        // 2. Verifica si en tu Enum EstatusVacante es Aprobada o APROBADA
-        List<Vacante> vacantesAprobadas = vacantesRepo.findByEstatus(EstatusVacante.Aprobada);
-        System.out.println("Registros encontrados: " + vacantesAprobadas.size());
-
-        for (Vacante vacante : vacantesAprobadas) {
-            System.out.println(vacante.getId() + ": " + vacante.getNombre() + " - " + vacante.getEstatus());
+    private void buscarVacantesPorDestacadoEstatus() {
+        List<Vacante> vacantesAprobadasYDestacadas = vacantesRepo.findByDestacadoAndEstatusOrderByIdDesc(1, EstatusVacante.Aprobada);
+        System.out.println("Registros encontrados: " + vacantesAprobadasYDestacadas.size());
+        for (Vacante vacante : vacantesAprobadasYDestacadas) {
+            System.out.println(vacante.getId() + ": " + vacante.getNombre() + " - " + vacante.getEstatus() + ", destacada: " + vacante.getDestacado());
         }
     }
 }
